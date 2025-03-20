@@ -4,11 +4,11 @@ import { getMonth } from "../../helpers/Date";
 import "./style.scss";
 
 const EventCard = ({
-  imageSrc,
-  imageAlt,
+  imageSrc = "/path/to/default/image.jpg",
+  imageAlt = "Image par défaut",
   date = new Date(),
-  title,
-  label,
+  title = "Événement sans titre", 
+  label = "Événement",
   small = false,
   ...props
 }) => (
@@ -18,7 +18,11 @@ const EventCard = ({
       {...props}
     >
       <div className="EventCard__imageContainer">
-        <img data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
+        <img 
+          data-testid="card-image-testid" 
+          src={imageSrc} 
+          alt={imageAlt} 
+        />
         <div className="EventCard__label">{label}</div>
       </div>
       <div className="EventCard__descriptionContainer">
@@ -29,17 +33,21 @@ const EventCard = ({
   );
 
 EventCard.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string,
   imageAlt: PropTypes.string,
-  date: PropTypes.instanceOf(Date).isRequired,
-  title: PropTypes.string.isRequired,
+  date: PropTypes.instanceOf(Date),
+  title: PropTypes.string,
   small: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
 };
 
 EventCard.defaultProps = {
-  imageAlt: "image",
+  imageSrc: "/path/to/default/image.jpg",
+  imageAlt: "Image par défaut",
+  title: "Événement sans titre",
+  label: "Événement",
   small: false,
+  date: () => new Date()
 }
 
 export default EventCard;
