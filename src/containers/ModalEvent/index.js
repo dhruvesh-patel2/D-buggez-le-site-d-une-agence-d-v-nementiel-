@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
-
+import { getMonth } from "../../helpers/Date";
 import "./style.scss";
 
-const ModalEvent = ({ event }) => (
+const ModalEvent = ({ event }) => {
+  const eventDate = new Date(event.date);
+  
+  return (
     <div className="ModalEvent">
       <div className="ModalEvent__imageContainer">
         <img
@@ -13,7 +16,9 @@ const ModalEvent = ({ event }) => (
       </div>
       <div className="ModalEvent__title">
         <div className="ModalEvent__titleLabel">{event.title}</div>
-        <div className="ModalEvent__titlePeriode">{event.periode}</div>
+        <div className="ModalEvent__titleDate">
+          {eventDate.getDate()} {getMonth(eventDate)} {eventDate.getFullYear()}
+        </div>
       </div>
       <div className="ModalEvent__descriptionContainer">
         <h3>Description</h3>
@@ -31,10 +36,11 @@ const ModalEvent = ({ event }) => (
       </div>
     </div>
   );
+};
 
 ModalEvent.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   event: PropTypes.any.isRequired,
-}
+};
 
 export default ModalEvent;
