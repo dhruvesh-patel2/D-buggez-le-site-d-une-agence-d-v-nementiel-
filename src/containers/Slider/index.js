@@ -8,31 +8,30 @@ const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
   
-  // Tri du plus ancien au plus récent
-  const byDateAsc = data?.focus
+  const byDateDesc = data?.focus
     ? [...data.focus].sort((evtA, evtB) =>
-        new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+        new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
       )
     : [];
 
   useEffect(() => {
     const timer = setTimeout(
       () => {
-        if (byDateAsc.length === 0) return;
-        setIndex(index < byDateAsc.length - 1 ? index + 1 : 0);
+        if (byDateDesc.length === 0) return;
+        setIndex(index < byDateDesc.length - 1 ? index + 1 : 0);
       },
       5000
     );
     return () => clearTimeout(timer);
-  }, [index, byDateAsc]);
+  }, [index, byDateDesc]);
 
-  if (!byDateAsc || byDateAsc.length === 0) {
+  if (!byDateDesc || byDateDesc.length === 0) {
     return <div>Chargement...</div>;
   }
 
   return (
     <div className="SlideCardList">
-      {byDateAsc.map((event, idx) => (
+      {byDateDesc.map((event, idx) => (
         <div
           key={event.id || event.title || `event-${idx}`}
           className={`SlideCard SlideCard--${
@@ -51,12 +50,12 @@ const Slider = () => {
       ))}
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
-          {byDateAsc.map((event) => (
+          {byDateDesc.map((event) => (
             <input
               key={`radio-${event.id || event.title}`}
               type="radio"
               name="radio-button"
-              checked={index === byDateAsc.indexOf(event)}
+              checked={index === byDateDesc.indexOf(event)}
               readOnly
             />
           ))}
