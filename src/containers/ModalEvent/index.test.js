@@ -9,7 +9,7 @@ const data = {
   description:
     "Présentation des outils analytics aux professionnels du secteur",
   nb_guesses: 1300,
-  periode: "24-25-26 Février",
+  periode: "24-25-26 Février", 
   prestations: [
     "1 espace d’exposition",
     "1 scéne principale",
@@ -21,8 +21,9 @@ const data = {
 describe("When Modal data is created", () => {
   it("a list of mandatories data is displayed", async () => {
     render(<ModalEvent event={data} />);
+
     await screen.findByText("1 espace d’exposition");
-    await screen.findByText("24-25-26 Février");
+    await screen.findByText("29 avril 2022"); 
     await screen.findByText(
       "Présentation des outils analytics aux professionnels du secteur"
     );
